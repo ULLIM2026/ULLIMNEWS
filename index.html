@@ -79,8 +79,8 @@ body{background:var(--bg);color:var(--text);font-family:'BookkMyungjo',serif;fon
 .bdg{display:inline-block;padding:1px 6px;font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border-radius:2px}
 .atitle{font-family:'BookkMyungjo',serif;font-size:15px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:5px;text-decoration:none;display:block}
 .atitle:active{opacity:.6}
-.asum{font-size:12px;color:var(--text2);line-height:1.65}
-.aexp{margin-top:8px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:2px;padding:10px 12px;font-size:12px;color:var(--text2);line-height:1.65;transition:background .2s}
+.asum{font-size:13.5px;color:var(--text2);line-height:1.65}
+.aexp{margin-top:8px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:2px;padding:10px 12px;font-size:13.5px;color:var(--text2);line-height:1.65;transition:background .2s}
 .explbl{font-size:9px;color:var(--text4);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .aacts{display:flex;gap:14px;margin-top:8px}
 .aact{background:none;border:none;font-family:inherit;font-size:11px;color:var(--text4);cursor:pointer;padding:0}
@@ -971,7 +971,6 @@ function renderFeed(){
   list.innerHTML=filtered.map(a=>{    const s=getSrc(a.source);const ex=expId===a.id;
     const sh=a.summary&&a.summary.length>130?a.summary.slice(0,130)+'…':(a.summary||'');
     const more=(a.summary&&a.summary.length>130)||a.perspective||a.memo;
-    const enc=encodeURIComponent(JSON.stringify(a));
     return`<div class="art">
       <div class="abar" style="background:${s.color}"></div>
       <div class="abody">
@@ -986,7 +985,7 @@ function renderFeed(){
         ${ex&&a.memo?`<div class="aexp" style="border-left-color:var(--gold)"><div class="explbl">나의 메모</div>${a.memo}</div>`:''}
         <div class="aacts">
           ${more?`<button class="aact" onclick="togExp(${a.id})">${ex?'접기 ▴':'더보기 ▾'}</button>`:''}
-          <button class="aact" onclick="openAdd(JSON.parse(decodeURIComponent('${enc}')))">수정</button>
+          <button class="aact" onclick="openAdd(arts.find(x=>x.id===${a.id}))">수정</button>
           <button class="aact del" onclick="delArt(${a.id})">삭제</button>
         </div>
       </div>
